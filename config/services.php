@@ -35,4 +35,18 @@ return [
         ],
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Applax Gate SDK Configuration
+    |--------------------------------------------------------------------------
+    */
+
+    'gate' => [
+        'api_key' => env('GATE_API_KEY'),
+        'sandbox' => env('GATE_SANDBOX_MODE', true),
+        'webhook_secret' => env('GATE_WEBHOOK_SECRET'),
+        'base_url' => env('GATE_BASE_URL', 'https://gate.appla-x.com/api/v0.6'),
+        'brand_id' => env('GATE_BRAND_ID', 'f13fc723-6006-4a2e-af43-6a48b037c441'),
+    ],
+
 ];
