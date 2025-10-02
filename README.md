@@ -100,7 +100,7 @@ php artisan serve
 
 ## 📚 **Documentation Links**
 
-- [Gate SDK Documentation](https://github.com/applax-dev/gate-sdk/blob/master/docs/raw-api-access.md)
+- [Gate SDK & Documentation](https://github.com/applax-dev/gate-sdk)
 - [Applax API Reference](https://docs.appla-x.com/)
 - [Gateway Dashboard](https://gate.appla-x.com/)
 
