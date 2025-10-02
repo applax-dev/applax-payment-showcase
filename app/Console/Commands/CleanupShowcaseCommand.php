@@ -138,25 +138,59 @@ class CleanupShowcaseCommand extends Command
             // Step 3: Clean up database tables (with foreign key constraints)
             $this->info('🔄 Cleaning database...');
 
-            // Delete in correct order due to foreign keys
+            // Disable foreign key checks temporarily
+            DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+
+            // Get counts before deletion
             $stats['payments_deleted'] = Payment::count();
-            Payment::truncate();
-            $this->info("✅ Deleted {$stats['payments_deleted']} payments");
-
             $stats['orders_deleted'] = Order::count();
-            OrderItem::truncate(); // Delete order items first
-            Order::truncate();
-            $this->info("✅ Deleted {$stats['orders_deleted']} orders and their items");
-
             $stats['customers_deleted'] = Customer::count();
-            Customer::truncate();
-            $this->info("✅ Deleted {$stats['customers_deleted']} customers");
+
+            // Truncate all tables in any order (foreign keys disabled)
+            if (DB::getSchemaBuilder()->hasTable('payment_transactions')) {
+                DB::table('payment_transactions')->truncate();
+                $this->info("✅ Deleted payment transactions");
+            }
+
+            if (DB::getSchemaBuilder()->hasTable('payments')) {
+                Payment::truncate();
+                $this->info("✅ Deleted {$stats['payments_deleted']} payments");
+            }
+
+            if (DB::getSchemaBuilder()->hasTable('order_items')) {
+                OrderItem::truncate();
+                $this->info("✅ Deleted order items");
+            }
+
+            if (DB::getSchemaBuilder()->hasTable('orders')) {
+                Order::truncate();
+                $this->info("✅ Deleted {$stats['orders_deleted']} orders");
+            }
+
+            if (DB::getSchemaBuilder()->hasTable('customers')) {
+                Customer::truncate();
+                $this->info("✅ Deleted {$stats['customers_deleted']} customers");
+            }
 
             // Step 4: Reset auto-increment counters
-            DB::statement('ALTER TABLE customers AUTO_INCREMENT = 1');
-            DB::statement('ALTER TABLE orders AUTO_INCREMENT = 1');
-            DB::statement('ALTER TABLE order_items AUTO_INCREMENT = 1');
-            DB::statement('ALTER TABLE payments AUTO_INCREMENT = 1');
+            if (DB::getSchemaBuilder()->hasTable('customers')) {
+                DB::statement('ALTER TABLE customers AUTO_INCREMENT = 1');
+            }
+            if (DB::getSchemaBuilder()->hasTable('orders')) {
+                DB::statement('ALTER TABLE orders AUTO_INCREMENT = 1');
+            }
+            if (DB::getSchemaBuilder()->hasTable('order_items')) {
+                DB::statement('ALTER TABLE order_items AUTO_INCREMENT = 1');
+            }
+            if (DB::getSchemaBuilder()->hasTable('payments')) {
+                DB::statement('ALTER TABLE payments AUTO_INCREMENT = 1');
+            }
+            if (DB::getSchemaBuilder()->hasTable('payment_transactions')) {
+                DB::statement('ALTER TABLE payment_transactions AUTO_INCREMENT = 1');
+            }
+
+            // Re-enable foreign key checks
+            DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
             DB::commit();
 
