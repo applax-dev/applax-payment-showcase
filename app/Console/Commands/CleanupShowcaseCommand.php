@@ -97,7 +97,7 @@ class CleanupShowcaseCommand extends Command
             foreach ($ordersWithGateway as $order) {
                 try {
                     // Cancel the order first, then it should be cleanable
-                    $this->gateSDKService->getSdk()->cancelOrder($order->gateway_order_id);
+                    $this->gateSDKService->cancelOrderRaw($order->gateway_order_id);
                     $this->line("  ✅ Cancelled Gateway order: {$order->gateway_order_id}");
                     $gatewayOrdersDeleted++;
                 } catch (\Exception $e) {
@@ -118,7 +118,7 @@ class CleanupShowcaseCommand extends Command
 
             foreach ($customersWithGateway as $customer) {
                 try {
-                    $this->gateSDKService->getSdk()->deleteClient($customer->gateway_client_id);
+                    $this->gateSDKService->deleteClientRaw($customer->gateway_client_id);
                     $this->line("  ✅ Deleted Gateway client: {$customer->gateway_client_id}");
                     $gatewayClientsDeleted++;
                 } catch (\Exception $e) {

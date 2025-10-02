@@ -20,6 +20,14 @@ return Application::configure(basePath: dirname(__DIR__))
             ->everyFiveMinutes()
             ->withoutOverlapping()
             ->description('Check and update order statuses from Gateway');
+
+        // Clean up showcase demo data at midnight
+        $schedule->command('showcase:cleanup --force')
+            ->daily()
+            ->at('00:00')
+            ->timezone(config('app.timezone', 'UTC'))
+            ->withoutOverlapping()
+            ->description('Clean up showcase demo data - removes all test orders, customers, and payments');
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
