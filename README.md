@@ -1,61 +1,119 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<div align="center">
+  <img src="https://media.appla-x.com/img/applax.png" alt="Applax Logo" width="200"/>
+</div>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# Applax Payment Gateway Showcase
 
-## About Laravel
+A comprehensive Laravel demonstration application showcasing the **applax-dev/gate-sdk** package capabilities. This interactive showcase demonstrates real payment processing, complete e-commerce workflows, and comprehensive SDK integrations.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🚀 Live Demo Features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 🛍️ **Shop Demo**
+Complete e-commerce experience with real payment processing:
+- Product catalog with shopping cart
+- Multi-step checkout process
+- Real card payment integration
+- Order confirmation and receipts
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 📊 **Admin Dashboard**
+Professional merchant tools for payment management:
+- Transaction monitoring and analytics
+- Order management with capture/refund operations
+- Customer database with Gateway synchronization
+- Payment history and detailed reports
+- Real-time order status updates
 
-## Learning Laravel
+### 🔧 **SDK Showcase**
+Interactive demonstrations of all Gate SDK APIs:
+- **Products API** - CRUD operations with cursor pagination
+- **Orders API** - Complete order lifecycle management
+- **Clients API** - Customer profile management
+- **Webhooks API** - Event notification system
+- **Raw API Access** - Direct access to any Gateway endpoint
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## ⚡ **New in v1.2.0: Raw API Access**
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Unlock unlimited possibilities with direct access to any Applax Gate API endpoint:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```php
+// Access new resources immediately
+$brand = $gateSDK->rawPost('/brands/', [
+    'name' => 'My Brand',
+    'website' => 'https://mybrand.com'
+]);
 
-## Laravel Sponsors
+// Universal method for any endpoint
+$response = $gateSDK->raw('GET', '/subscriptions/', null, ['limit' => 10]);
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+**Now Available:**
+- 🏢 **Brands Management** - Create and manage brand profiles
+- 🔄 **Subscriptions** - Recurring payment management
+- 📊 **Taxes** - Tax calculation and management
+- 💳 **Charges** - One-time payment processing
 
-### Premium Partners
+## 🛠️ **Technical Stack**
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+- **Framework:** Laravel 11
+- **SDK:** applax-dev/gate-sdk v1.2.0
+- **Frontend:** Bootstrap 5 with responsive design
+- **Database:** MySQL with comprehensive migrations
+- **Payment Processing:** Real Applax Gateway integration
+- **Architecture:** Clean MVC with service layer
 
-## Contributing
+## 📋 **Key Features**
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- ✅ **Real API Integration** - All demonstrations use live Gateway APIs
+- ✅ **Complete Error Handling** - Comprehensive exception management
+- ✅ **Professional UI/UX** - Modern, responsive design
+- ✅ **Code Examples** - Copy-ready code snippets for every API call
+- ✅ **Automated Cleanup** - Scheduled midnight cleanup of demo data
+- ✅ **Comprehensive Testing** - Full payment flow validation
 
-## Code of Conduct
+## 🎯 **Perfect For**
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- **Developers** exploring Applax Gateway integration
+- **Merchants** evaluating payment solutions
+- **Technical Teams** understanding SDK capabilities
+- **Product Demos** showcasing payment features
+- **Integration Testing** validating payment flows
 
-## Security Vulnerabilities
+## 🔧 **Quick Setup**
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+# Clone and install
+git clone <repository-url>
+cd decta
+composer install
 
-## License
+# Configure environment
+cp .env.example .env
+# Add your Applax Gateway API credentials
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+# Setup database
+php artisan migrate --seed
+php artisan key:generate
+
+# Start demo
+php artisan serve
+```
+
+## 📚 **Documentation Links**
+
+- [Gate SDK Documentation](https://github.com/applax-dev/gate-sdk/blob/master/docs/raw-api-access.md)
+- [Applax API Reference](https://docs.appla-x.com/)
+- [Gateway Dashboard](https://gate.appla-x.com/)
+
+## 🧹 **Automated Maintenance**
+
+The showcase includes automated cleanup that runs daily at midnight:
+- Removes all demo orders, customers, and payments
+- Cancels Gateway orders and deletes clients
+- Resets database for fresh demonstrations
+- Comprehensive error handling and logging
+
+---
+
+**Built with ❤️ to demonstrate the power of Applax Gateway SDK**
+
+*This demo showcases real payment processing capabilities. All transactions are processed through the Applax Gateway using your API credentials.*
