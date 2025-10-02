@@ -87,7 +87,7 @@ class CleanupShowcaseCommand extends Command
         ];
 
         try {
-            DB::beginTransaction();
+            // Note: We'll handle transactions carefully due to TRUNCATE operations
 
             // Step 1: Clean up Gateway orders first (orders with gateway_order_id)
             $this->info('🔄 Cleaning Gateway orders...');
@@ -192,8 +192,6 @@ class CleanupShowcaseCommand extends Command
             // Re-enable foreign key checks
             DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
-            DB::commit();
-
             // Summary
             $this->info('');
             $this->info('🎉 Cleanup completed successfully!');
@@ -229,7 +227,7 @@ class CleanupShowcaseCommand extends Command
             return Command::SUCCESS;
 
         } catch (\Exception $e) {
-            DB::rollBack();
+            // Don't rollback since TRUNCATE operations auto-commit
             $this->error('❌ Cleanup failed: ' . $e->getMessage());
             Log::error('Showcase cleanup failed', ['error' => $e->getMessage()]);
             return Command::FAILURE;
